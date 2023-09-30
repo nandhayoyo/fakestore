@@ -14,7 +14,9 @@ export default function ProductDetail(params) {
   // console.log(params);
 
   const fetchDetail = async () => {
-    const res = await fetch(`${BASE_URL_DETAIL}${params.params.productId}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST_API}/products/${params.params.productId}`
+    );
     const data = await res.json();
 
     setProductDetail(data);

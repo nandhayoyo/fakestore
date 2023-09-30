@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "./constants/variable";
 import Link from "next/link";
-import Category from "./component/Category";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
   const [product, setProduct] = useState([]);
@@ -12,12 +10,17 @@ export default function Home() {
   console.log("ENV", process.env.NEXT_PUBLIC_HOST);
 
   const fetchProduct = async () => {
-    isLoading(true);
-    const res = await fetch(BASE_URL + "products");
-    const data = await res.json();
+    try {
+      isLoading(true);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_API}/products`);
+      const data = await res.json();
 
-    setProduct(data);
-    isLoading(false);
+      setProduct(data);
+      isLoading(false);
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
