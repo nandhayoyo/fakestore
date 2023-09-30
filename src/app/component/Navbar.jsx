@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { BASE_URL } from "../constants/variable";
 
 export default function NavigasiBar() {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
@@ -12,7 +13,7 @@ export default function NavigasiBar() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
           <img
-            src={`${process.env.NEXT_PUBLIC_HOST}/assets/images/logo_n.png`}
+            src={`/assets/images/logo_n.png`}
             className="h-8 mr-3"
             alt="store Logo"
           />
