@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { BASE_URL_DETAIL } from "../../constants/variable";
+import { BASE_URL, BASE_URL_DETAIL } from "../../constants/variable";
 import { toast } from "react-hot-toast";
 
 export default function ProductDetail(params) {
@@ -14,13 +14,13 @@ export default function ProductDetail(params) {
   // console.log(params);
 
   const fetchDetail = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST_API}/products/${params.params.productId}`
-    );
+    // const res = await fetch(
+    //   `${process.env.NEXT_PUBLIC_HOST_API}/products/${params.params.productId}`
+    // );
+    const res = await fetch(`${BASE_URL}/products/${params.params.productId}`);
     const data = await res.json();
 
     setProductDetail(data);
-    // console.log("data", data);
   };
 
   useEffect(() => {

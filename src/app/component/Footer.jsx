@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="mb-6 md:mb-0">
             <Link href="/" className="flex items-center">
               <img
-                src={`${process.env.NEXT_PUBLIC_HOST}/assets/images/logo_n.png`}
+                src={`/assets/images/logo_n.png`}
                 className="h-8 mr-3"
                 alt="logo"
               />

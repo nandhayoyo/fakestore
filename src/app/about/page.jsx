@@ -28,7 +28,7 @@ export default function About() {
       </p>
 
       <img
-        src={`${process.env.NEXT_PUBLIC_HOST}/assets/images/about.png`}
+        src={`/assets/images/about.png`}
         className="mx-auto items-center"
         alt="store Logo"
         width={500}

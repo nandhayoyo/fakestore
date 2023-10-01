@@ -2,17 +2,21 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { BASE_URL } from "./constants/variable";
 
 export default function Home() {
   const [product, setProduct] = useState([]);
   const [loading, isLoading] = useState(false);
 
-  console.log("ENV", process.env.NEXT_PUBLIC_HOST);
+  // console.log("ENV", process.env.NEXT_PUBLIC_HOST);
+  // console.log("ENV", process.env.NEXT_PUBLIC_HOST_API);
 
   const fetchProduct = async () => {
     try {
       isLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_API}/products`);
+      // const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_API}/products`);
+      const res = await fetch(`${BASE_URL}/products`);
+
       const data = await res.json();
 
       setProduct(data);
