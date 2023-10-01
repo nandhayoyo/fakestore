@@ -9,7 +9,6 @@ export default function About() {
         pengembangan web. Menggunakan teknologi modern seperti Next.js 13,
         Tailwind CSS, dan mengambil data dari
         <a href="https://fakestoreapi.com/" target="_blank">
-          {" "}
           fakestoreapi.com
         </a>
       </p>
@@ -44,7 +43,7 @@ export default function About() {
         Pada website tersebut, Anda akan menemukan berbagai proyek dan
         portofolio yang telah saya kerjakan sebelumnya, Anda dapat mengaksesnya
         <a
-          href="https://nandhayoyo.vercel.app/"
+          href="https://nandhayoyo.online/"
           target="_blank"
           className="italic"
         >
