@@ -32,7 +32,7 @@ export default function Footer() {
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
                   <Link
-                    href="https://nandhayoyo.vercel.app/"
+                    href="https://nandhayoyo.online/"
                     className="hover:underline"
                     target="_blank"
                   >
