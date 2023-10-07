@@ -2,11 +2,18 @@
 import Link from "next/link";
 import { useState } from "react";
 import { BASE_URL } from "../constants/variable";
+import { toast } from "react-hot-toast";
+
 
 export default function NavigasiBar() {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
 
   const onHandleMobileMenu = () => setIsShowMobileMenu(!isShowMobileMenu);
+  const handleClick = (e) => {
+    toast("This feature under maintenance!", {
+      icon: "⚠️",
+    });
+  };
 
   return (
     <nav className="bg-slate-100 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
@@ -79,6 +86,16 @@ export default function NavigasiBar() {
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 Contact
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="#"
+                onClick={handleClick}
+                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Login
               </Link>
             </li>
           </ul>
