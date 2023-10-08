@@ -165,11 +165,11 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex flex-col justify-between px-5 pb-5 leading-normal mt-10">
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="h-36 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                       {value.title}
                     </h5>
 
-                    <div className="flex items-center justify-between mt-10">
+                    <div className="flex items-center justify-between">
                       <span className="text-3xl font-bold text-gray-900 dark:text-white">
                         ${value.price}
                       </span>
