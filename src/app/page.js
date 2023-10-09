@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import Jumbotron from "./component/Jumbotron";
 import AllProducts from "./component/AllProducts";
