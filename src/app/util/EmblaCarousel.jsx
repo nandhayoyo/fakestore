@@ -74,7 +74,7 @@ const EmblaCarousel = (props) => {
   }, [emblaApi, onScroll]);
 
   return (
-    <section className="max-w-screen-xl mx-auto mt-5 ">
+    <section className="max-w-screen-xl mx-auto mt-5">
       <div className="w-full p-4 bg-white border border-gray-200 rounded-2xl shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <h1 className="text-2xl  font-bold text-green-400 ml-2">
           Weekly Promotion 🔥
