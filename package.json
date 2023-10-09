@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "axios": "^1.5.1",
+    "emailjs": "^4.0.3",
     "embla-carousel-react": "^8.0.0-rc14",
     "flowbite": "^1.8.1",
+    "jquery": "^3.7.1",
     "next": "13.4.19",
     "react": "latest",
     "react-dom": "latest",
