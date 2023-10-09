@@ -5,7 +5,7 @@ function Category() {
   const [categories, setCategories] = useState([]);
 
   const fetchCategory = async () => {
-    const res = await fetch(BASE_URL + "products/categories");
+    const res = await fetch(BASE_URL + "/products/categories");
     const data = await res.json();
 
     setCategories(data);

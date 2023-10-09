@@ -1,36 +1,32 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
-import { BASE_URL } from "./constants/variable";
+import { toast, Toaster } from "react-hot-toast";
 import Jumbotron from "./component/Jumbotron";
+import useProductsStore from "@/app/store/productsStore";
+import { ProductsService } from "./services/ProductsService";
+import Category from "./component/Category";
 
 export default function Home() {
-  const [product, setProduct] = useState([]);
   const [loading, isLoading] = useState(false);
-
-  // console.log("ENV", process.env.NEXT_PUBLIC_HOST);
-  // console.log("ENV", process.env.NEXT_PUBLIC_HOST_API);
-
-  const fetchProduct = async () => {
-    try {
-      isLoading(true);
-      // const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_API}/products`);
-      const res = await fetch(`${BASE_URL}/products`);
-
-      const data = await res.json();
-
-      setProduct(data);
-      isLoading(false);
-    } catch (error) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
-  };
+  const { products, setProducts } = useProductsStore();
+  const [showDropdown, setShowDropdown] = useState(false); // State untuk mengontrol tampilan dropdown
+  const [selectedCategory, setSelectedCategory] = useState("All categories"); // State untuk menyimpan kategori yang dipilih
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    const fetchProducts = async () => {
+      try {
+        const productService = ProductsService();
+        const productsData = await productService.getProducts();
+        setProducts(productsData);
+        console.log(productsData);
+      } catch (error) {
+        console.error("Error fetching products", error);
+      }
+    };
+
+    fetchProducts();
+  }, [setProducts]);
 
   const handleClickMaintenance = (e) => {
     toast("This feature under maintenance!", {
@@ -38,8 +34,20 @@ export default function Home() {
     });
   };
 
+  const handleCategoryClick = () => {
+    // Ketika tombol kategori diklik, atur tampilan dropdown
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleCategorySelect = (category) => {
+    // Ketika salah satu kategori dipilih, atur kategori yang dipilih dan tutup dropdown
+    setSelectedCategory(category);
+    setShowDropdown(false);
+  };
+
   return (
     <>
+      <Toaster />
       <Jumbotron />
       <section className="max-w-screen-xl mx-auto mt-5 ">
         <form>
@@ -53,12 +61,15 @@ export default function Home() {
             <button
               id="dropdown-button"
               data-dropdown-toggle="dropdown"
+              onClick={handleCategoryClick} // Panggil fungsi ketika tombol kategori diklik
               className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
               type="button"
             >
-              All categories{" "}
+              {selectedCategory}
               <svg
-                className="w-2.5 h-2.5 ml-2.5"
+                className={`w-2.5 h-2.5 ml-2.5 transition-transform ${
+                  showDropdown ? "rotate-180" : "rotate-0"
+                }`} // Putar ikon panah bawah jika dropdown ditampilkan
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -75,42 +86,35 @@ export default function Home() {
             </button>
             <div
               id="dropdown"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+              className={`z-10 absolute ${showDropdown ? "block" : "hidden"
+                } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+              style={{
+                top: "calc(100% + 10px)", // Menentukan jarak dari atas
+                 // Menentukan posisi horizontal
+                zIndex: 1000, // Menentukan tingkat z-index
+              }}
             >
               <ul
                 className="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdown-button"
               >
+                {/* Tampilkan daftar kategori */}
                 <li>
                   <button
                     type="button"
+                    onClick={() => handleCategorySelect("Category 1")} // Panggil fungsi ketika kategori dipilih
                     className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
-                    Mockups
+                    Category 1
                   </button>
                 </li>
                 <li>
                   <button
                     type="button"
+                    onClick={() => handleCategorySelect("Category 2")} // Panggil fungsi ketika kategori dipilih
                     className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
-                    Templates
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Design
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Logos
+                    Category 2
                   </button>
                 </li>
               </ul>
@@ -150,11 +154,11 @@ export default function Home() {
         </form>
       </section>
       <section className="max-w-screen-xl mx-auto mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 p-4">
-        {product.length > 0
-          ? product.map((value) => (
+        {products.length > 0
+          ? products.map((value) => (
               <div
                 key={value.id}
-                className="w-full max-w-sm mb-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                className="w-full max-w-sm mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
                 <Link href={`/product/${value.id}`}>
                   <div className="w-full flex  items-center justify-center">
@@ -165,19 +169,31 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex flex-col justify-between px-5 pb-5 leading-normal mt-10">
-                    <h5 className="h-36 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="mb-5 h-14 text-xl font-semibold tracking-tight text-gray-900 dark:text-white overflow-hidden overflow-ellipsis">
                       {value.title}
                     </h5>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                        ${value.price}
-                      </span>
+                    <span className="text-2xl font-bold text-green-500 dark:text-white">
+                      ${value.price}
+                    </span>
+                    <div className="flex items-center mt-2">
+                      <svg
+                        className="w-4 h-4 text-yellow-300 mr-1"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                      <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+                        {value.rating.rate}
+                      </p>
+                      <span className="w-2 h-2 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
                       <a
                         href="#"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white"
                       >
-                        Add to cart
+                        {value.rating.count} Sold
                       </a>
                     </div>
                   </div>
@@ -188,27 +204,25 @@ export default function Home() {
               <div
                 key={index}
                 role="status"
-                className="mb-10 p-5 border border-gray-200 rounded-lg space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
+                className="max-w-sm p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
               >
-                <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+                <div className="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
                   <svg
                     className="w-10 h-10 text-gray-200 dark:text-gray-600"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
-                    viewBox="0 0 20 18"
+                    viewBox="0 0 16 20"
                   >
-                    <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                    <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
                   </svg>
                 </div>
-                <div className="w-full">
-                  <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-                </div>
+                <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+
                 <span className="sr-only">Loading...</span>
               </div>
             ))}

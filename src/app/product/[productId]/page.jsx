@@ -2,21 +2,29 @@
 import { useEffect, useState } from "react";
 import { BASE_URL, BASE_URL_DETAIL } from "../../constants/variable";
 import { toast } from "react-hot-toast";
+import useProductsStore from "@/app/store/productsStore";
 
 export default function ProductDetail(params) {
   const [productDetail, setProductDetail] = useState({});
-  // const id = params.productId;
+  // const { products } = useProductsStore();
 
-  const handleClick = (e) => {
-    toast.success("Dummy Buy Success!");
-  };
+  // useEffect(() => {
+  //   // Cari produk dengan ID yang sesuai di dalam array products
+  //   const product = products.find((product) => product.id === params.productId);
 
-  // console.log(params);
+  //   // Jika produk ditemukan, atur detail produk
+  //   if (product) {
+  //     setProductDetail(product);
+  //   } else {
+  //     console.error("Product not found");
+
+  //     console.log(products);
+  //     console.log(params.productId);
+  //     toast.error("Product not found");
+  //   }
+  // }, [params.productId, products]);
 
   const fetchDetail = async () => {
-    // const res = await fetch(
-    //   `${process.env.NEXT_PUBLIC_HOST_API}/products/${params.params.productId}`
-    // );
     const res = await fetch(`${BASE_URL}/products/${params.params.productId}`);
     const data = await res.json();
 
@@ -26,6 +34,11 @@ export default function ProductDetail(params) {
   useEffect(() => {
     fetchDetail();
   }, []);
+
+
+  const handleClick = (e) => {
+    toast.success("Dummy Buy Success!");
+  };
 
   return (
     <>

@@ -12,14 +12,13 @@ const Jumbotron = () => {
       <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div className="mr-auto place-self-center lg:col-span-7">
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-            Selamat Datang di E-Commerce Kami!
+            Welcome to Our E-Commerce!
           </h1>
           <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-            Kami dengan bangga mempersembahkan kepada Anda e-commerce terbaru
-            kami, tempat di mana Anda dapat menemukan produk-produk berkualitas
-            terbaik dari berbagai kategori. Kami berkomitmen untuk memberikan
-            pengalaman berbelanja online yang menyenangkan dan memudahkan
-            pelanggan kami.
+            We proudly present you our newest e-commerce, a place where you can
+            find the best quality products from various categories. We are
+            committed to providing a pleasant and easy online shopping
+            experience for our customers.
           </p>
           <a
             href="#"
@@ -57,7 +56,9 @@ const Jumbotron = () => {
       </div>
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
         <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-          <span className="font-semibold text-gray-400 uppercase">FEATURED IN</span>
+          <span className="font-semibold text-gray-400 uppercase">
+            FEATURED IN
+          </span>
           <div className="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
             <a
               href="#"
