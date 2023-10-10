@@ -27,13 +27,13 @@ const Login = ({ onClose, setIsLoggedIn }) => {
     };
     
     const handleClickMaintenance = (e) => {
-      toast("This feature under maintenance!", {
-        icon: "⚠️",
-      });
-    };
+    toast("This feature under maintenance!", {
+      icon: "⚠️",
+    });
+  };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full p-0 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] h-screen">
+    <div className="bg-white fixed top-5 left-0 right-0 z-50 w-full p-0 overflow-x-hidden overflow-y-auto md:inset-0  h-screen">
       <button
         onClick={onClose}
         className="absolute top-3 right-10 text-gray-400 bg-green-200 hover:bg-green-500 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
