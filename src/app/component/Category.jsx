@@ -41,11 +41,19 @@ const Category = ({ handleClickMaintenance }) => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
 
-    const filteredProducts = products.filter((product) =>
-      product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setSearchResults(filteredProducts);
-    console.log("filter search :: ", filteredProducts);
+    // const filteredProducts = products.filter((product) =>
+    //   product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
+    // setSearchResults(filteredProducts);
+
+    if (searchQuery.trim() === "") {
+      setSearchResults(products);
+    } else {
+      const filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchResults(filteredProducts);
+    }
   };
   return (
     <section className="max-w-screen-xl mx-auto mt-5">
@@ -120,7 +128,6 @@ const Category = ({ handleClickMaintenance }) => {
               placeholder="Find something..."
               value={searchQuery}
               onChange={handleSearchChange}
-              required
             />
             <button
               //   onClick={handleClickMaintenance}

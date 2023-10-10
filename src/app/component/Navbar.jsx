@@ -1,12 +1,29 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { BASE_URL } from "../constants/variable";
 import { toast } from "react-hot-toast";
-
+import { destroyCookie } from "nookies";
+import Login from "./Login";
 
 export default function NavigasiBar() {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLoginModal = () => {
+    setIsLoginModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const handleLogout = () => {
+    destroyCookie(null, "token");
+    setIsLoggedIn(false);
+  };
 
   const onHandleMobileMenu = () => setIsShowMobileMenu(!isShowMobileMenu);
   const handleClick = (e) => {
@@ -91,13 +108,29 @@ export default function NavigasiBar() {
             </li>
 
             <li>
-              <Link
-                href="#"
-                onClick={handleClick}
-                className="block py-2 pl-3 pr-4 text-green-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-500 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Login
-              </Link>
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="block py-2 pl-3 pr-4 text-green-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-500 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={openLoginModal}
+                  className="block py-2 pl-3 pr-4 text-green-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-500 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Login
+                </button>
+              )}
+              {isLoginModalOpen && (
+                <Login
+                  onClose={closeLoginModal}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              )}
             </li>
           </ul>
         </div>
