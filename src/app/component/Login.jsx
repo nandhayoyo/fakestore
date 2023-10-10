@@ -63,7 +63,7 @@ const Login = ({ onClose, setIsLoggedIn }) => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <div className="bg-red-300 p-2 rounded-md">
+              <div className="bg-green-200 p-2 rounded-md">
                 <h3>username : mor_2314</h3>
                 <h3>password : 83r5^_</h3>
               </div>

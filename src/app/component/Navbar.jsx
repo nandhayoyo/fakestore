@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
 import { destroyCookie } from "nookies";
 import Login from "./Login";
 
@@ -26,23 +25,23 @@ export default function NavigasiBar() {
   };
 
   const onHandleMobileMenu = () => setIsShowMobileMenu(!isShowMobileMenu);
-  const handleClick = (e) => {
-    toast("This feature under maintenance!", {
-      icon: "⚠️",
-    });
-  };
+  // const handleClick = (e) => {
+  //   toast("This feature under maintenance!", {
+  //     icon: "⚠️",
+  //   });
+  // };
 
   return (
     <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
           <img
-            src={`/assets/images/logo_n.png`}
+            src={`/assets/images/logoipsum.svg`}
             className="h-8 mr-3"
             alt="store Logo"
           />
-          <span className="self-center text-2xl font-bold whitespace-nowrap text-green-700 dark:text-white">
-            Fakestore
+          <span className="self-center text-2xl font-bold whitespace-nowrap text-green-600 dark:text-white">
+            FakeStore
           </span>
         </Link>
         <button
