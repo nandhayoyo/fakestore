@@ -24,7 +24,13 @@ const Login = ({ onClose, setIsLoggedIn }) => {
       console.error("Login failed:", error);
       toast.error("Failed to Login, please try again");
     }
-  };
+    };
+    
+    const handleClickMaintenance = (e) => {
+      toast("This feature under maintenance!", {
+        icon: "⚠️",
+      });
+    };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full p-0 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] h-screen">
@@ -57,6 +63,10 @@ const Login = ({ onClose, setIsLoggedIn }) => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
+              <div className="bg-red-300 p-2 rounded-md">
+                <h3>username : mor_2314</h3>
+                <h3>password : 83r5^_</h3>
+              </div>
               <form
                 onSubmit={handleLogin}
                 className="space-y-4 md:space-y-6"
@@ -120,6 +130,7 @@ const Login = ({ onClose, setIsLoggedIn }) => {
                   </div>
                   <a
                     href="#"
+                    onClick={handleClickMaintenance}
                     className="text-sm font-medium text-green-600 hover:underline dark:text-green-500"
                   >
                     Forgot password?
@@ -135,6 +146,7 @@ const Login = ({ onClose, setIsLoggedIn }) => {
                   Don’t have an account yet?{" "}
                   <a
                     href="#"
+                    onClick={handleClickMaintenance}
                     className="font-medium text-green-600 hover:underline dark:text-green-500"
                   >
                     Sign up
