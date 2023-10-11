@@ -1,9 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/variable";
+import { parseCookies } from "nookies";
 
 const LoginServiceRequest = axios.create({
   baseURL: BASE_URL,
 });
+const cookies = parseCookies();
 
 export const postLogin = async (username, password) => {
   const formData = new FormData();
@@ -21,6 +23,6 @@ export const postLogin = async (username, password) => {
 
     return { token };
   } catch (error) {
-    throw error; 
+    throw error;
   }
 };

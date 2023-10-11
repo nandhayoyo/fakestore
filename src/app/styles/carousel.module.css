@@ -1,6 +1,6 @@
 .embla {
   --slide-spacing: 1rem;
-  --slide-size: 75%;
+  --slide-size: 80%;
   --slide-height: 15rem;
   padding: 1rem;
 }
@@ -20,28 +20,35 @@
   padding-left: var(--slide-spacing);
   position: relative;
 }
+
+.embla__slide_tech {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  /* padding-left: 10rem; */
+  /* padding-right: 10rem; */
+  /* padding-left: var(--slide-spacing); */
+  position: relative;
+}
+
 .embla__slide__img {
   border-radius: 15px;
   display: block;
   /* height: var(--slide-height); */
   padding-right: 0rem;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
+
+.embla__slide__img_tech {
+  display: block;
+  height: 100px;
+  padding-right: 0rem;
+  width: auto;
+  object-fit: cover;
+}
+
 .embla__slide__number {
   display: none;
-  width: 4.6rem;
-  height: 4.6rem;
-  z-index: 1;
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  border-radius: 50%;
-  background-color: rgba(var(--background-site-rgb-value), 0.85);
-  line-height: 4.6rem;
-  font-weight: 900;
-  text-align: center;
-  pointer-events: none;
 }
 .embla__slide__number > span {
   color: var(--brand-primary);

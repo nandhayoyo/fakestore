@@ -1,28 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { BASE_URL, BASE_URL_DETAIL } from "../../constants/variable";
+import { BASE_URL } from "../../constants/variable";
 import { toast } from "react-hot-toast";
 import useProductsStore from "@/app/store/productsStore";
+import { parseCookies } from "nookies";
 
 export default function ProductDetail(params) {
   const [productDetail, setProductDetail] = useState({});
-  // const { products } = useProductsStore();
-
-  // useEffect(() => {
-  //   // Cari produk dengan ID yang sesuai di dalam array products
-  //   const product = products.find((product) => product.id === params.productId);
-
-  //   // Jika produk ditemukan, atur detail produk
-  //   if (product) {
-  //     setProductDetail(product);
-  //   } else {
-  //     console.error("Product not found");
-
-  //     console.log(products);
-  //     console.log(params.productId);
-  //     toast.error("Product not found");
-  //   }
-  // }, [params.productId, products]);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { addToCart } = useProductsStore();
 
   const fetchDetail = async () => {
     const res = await fetch(`${BASE_URL}/products/${params.params.productId}`);
@@ -31,13 +17,37 @@ export default function ProductDetail(params) {
     setProductDetail(data);
   };
 
+  function checkUserLoginStatus() {
+    const cookies = parseCookies();
+    const token = cookies.token;
+
+    return !!token;
+  }
+
   useEffect(() => {
     fetchDetail();
   }, []);
 
+  const openLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
 
-  const handleClick = (e) => {
-    toast.success("Dummy Buy Success!");
+  const closeLoginModal = () => {
+    setIsLoginModalOpen(false);
+  };
+
+  const handleAddToCart = () => {
+    if (Object.keys(productDetail).length > 0) {
+      const isLoggedIn = checkUserLoginStatus();
+      if (isLoggedIn) {
+        addToCart(productDetail);
+        toast.success("Product added to cart!");
+        console.log("Product added to cart ::", productDetail);
+      } else {
+        toast.error("Login to add your item to Cart.");
+        openLoginModal();
+      }
+    }
   };
 
   return (
@@ -64,11 +74,12 @@ export default function ProductDetail(params) {
                 </h4>
                 <p className="py-3">{productDetail.description}</p>
 
+                
                 <button
-                  onClick={handleClick}
+                  onClick={handleAddToCart}
                   className="font-bold bg-amber-200 rounded-lg p-3 mt-2 hover:bg-blue-200"
                 >
-                  Dummy Buy
+                  Add To Cart
                 </button>
               </div>
             </div>

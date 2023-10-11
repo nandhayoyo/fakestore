@@ -3,11 +3,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { destroyCookie } from "nookies";
 import Login from "./Login";
+import useProductsStore from "../store/productsStore";
 
 export default function NavigasiBar() {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const cartItem = useProductsStore((state) => state.cart);
+  console.log("item di cart", cartItem);
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -20,16 +24,14 @@ export default function NavigasiBar() {
   };
 
   const handleLogout = () => {
-    destroyCookie(null, "token");
+    destroyCookie(null, "token", {
+      path: "/",
+    });
     setIsLoggedIn(false);
+    window.location.reload();
   };
 
   const onHandleMobileMenu = () => setIsShowMobileMenu(!isShowMobileMenu);
-  // const handleClick = (e) => {
-  //   toast("This feature under maintenance!", {
-  //     icon: "⚠️",
-  //   });
-  // };
 
   return (
     <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
@@ -104,6 +106,49 @@ export default function NavigasiBar() {
               >
                 Contact
               </Link>
+            </li>
+
+            <li>
+              {isLoggedIn ? (
+                <Link href="/cart">
+                  <div className="relative grid place-item-center">
+                    {cartItem.length > 0 && (
+                      <div className="absolute aspect-square h-4 grid place-items-center -translate-y-1/2 translate-x-1/2 text-white rounded-full bg-blue-400 top-0 right-0">
+                        <p className="text-xs">{cartItem.length}</p>
+                      </div>
+                    )}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="1em"
+                      viewBox="0 0 576 512"
+                      fill="#1b8850"
+                    >
+                      <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                    </svg>
+                  </div>
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={openLoginModal}
+                  className="block py-2 pl-3 pr-4 text-green-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-500 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover-bg-gray-700 dark:hover-text-white md:dark-hover-bg-transparent dark-border-gray-700"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    viewBox="0 0 576 512"
+                    fill="#1b8850"
+                  >
+                    <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                  </svg>{" "}
+                </button>
+              )}
+              {isLoginModalOpen && (
+                <Login
+                  onClose={closeLoginModal}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              )}
             </li>
 
             <li>

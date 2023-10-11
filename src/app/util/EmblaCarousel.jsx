@@ -76,7 +76,7 @@ const EmblaCarousel = (props) => {
   return (
     <section className="max-w-screen-xl mx-auto mt-5">
       <div className="mx-5 p-1 bg-white border border-gray-200 rounded-2xl shadow sm:p-4 dark:bg-gray-800 dark:border-gray-700">
-        <h1 className="text-md md:text-md font-bold text-green-500 ml-2 sm:text-2xl">
+        <h1 className="text-sm md:text-sm lg:text-xl font-bold text-green-500 ml-2 ">
           Weekly Promotion 🔥
         </h1>
         <div className={styles.embla}>

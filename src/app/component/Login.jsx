@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { setCookie } from "nookies";
 import { postLogin } from "../services/LoginService";
 import toast from "react-hot-toast";
+import { setCookie } from "nookies";
 
 const Login = ({ onClose, setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
