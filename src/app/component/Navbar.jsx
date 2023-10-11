@@ -6,6 +6,7 @@ import Login from "./Login";
 import useProductsStore from "../store/productsStore";
 import Image from "next/image";
 import cart from "../assets/image/cart.svg";
+import toast from "react-hot-toast";
 
 export default function NavigasiBar() {
   const [isShowMobileMenu, setIsShowMobileMenu] = useState(false);
@@ -34,6 +35,12 @@ export default function NavigasiBar() {
   };
 
   const onHandleMobileMenu = () => setIsShowMobileMenu(!isShowMobileMenu);
+
+  const handleClickMaintenance = (e) => {
+    toast("This feature under maintenance!", {
+      icon: "⚠️",
+    });
+  };
 
   return (
     <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
@@ -138,7 +145,7 @@ export default function NavigasiBar() {
 
             <li>
               {isLoggedIn ? (
-                <Link href="/cart">
+                <Link href="#" onClick={handleClickMaintenance}>
                   <div className="relative inline-grid pl-3 grid place-item-center items-center">
                     {cartItem.length > 0 && (
                       <div className="absolute aspect-square h-4 grid place-items-center -translate-y-1 translate-x-1/2 text-white rounded-full bg-blue-400 top-0 right-0">
