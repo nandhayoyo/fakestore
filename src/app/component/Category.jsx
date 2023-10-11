@@ -41,11 +41,6 @@ const Category = ({ handleClickMaintenance }) => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
 
-    // const filteredProducts = products.filter((product) =>
-    //   product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
-    // setSearchResults(filteredProducts);
-
     if (searchQuery.trim() === "") {
       setSearchResults(products);
     } else {

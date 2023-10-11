@@ -145,7 +145,7 @@ export default function NavigasiBar() {
 
             <li>
               {isLoggedIn ? (
-                <Link href="#" onClick={handleClickMaintenance}>
+                <Link href="/cart">
                   <div className="relative inline-grid pl-3 grid place-item-center items-center">
                     {cartItem.length > 0 && (
                       <div className="absolute aspect-square h-4 grid place-items-center -translate-y-1 translate-x-1/2 text-white rounded-full bg-blue-400 top-0 right-0">

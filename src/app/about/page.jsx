@@ -6,8 +6,9 @@ export default function About() {
       <h1 className="text-2xl font-bold">About Us</h1>
       <p className="text-justify mb-3 mt-10 text-gray-500 dark:text-gray-400 first-line:uppercase first-line:tracking-widest first-letter:text-7xl first-letter:font-bold first-letter:text-gray-900 dark:first-letter:text-gray-100 first-letter:mr-3 first-letter:float-left">
         Website ini dibuat dengan tujuan latihan dan eksperimen dalam
-        pengembangan web. Menggunakan teknologi modern seperti Next.js 13,
-        Tailwind CSS, dan mengambil data dari
+        pengembangan web. Menggunakan teknologi modern seperti{" "}
+        <span className="italic font-semibold"> Next.js 13, Tailwind CSS, Axios, Zustand </span> dan mengambil
+        data dari{" "}
         <a href="https://fakestoreapi.com/" target="_blank">
           fakestoreapi.com
         </a>
@@ -42,11 +43,7 @@ export default function About() {
         {" "}
         Pada website tersebut, Anda akan menemukan berbagai proyek dan
         portofolio yang telah saya kerjakan sebelumnya, Anda dapat mengaksesnya
-        <a
-          href="https://nandhayoyo.online/"
-          target="_blank"
-          className="italic"
-        >
+        <a href="https://nandhayoyo.online/" target="_blank" className="italic">
           {" "}
           disini
         </a>
